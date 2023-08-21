@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="moduloRol/listarRol::style-head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body class="g-sidenav-show  bg-gray-200">
+	<aside th:replace="moduloRol/listarRol::logo-nav"></aside>
+
+	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+		<!-- Navbar -->
+		<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
+                    position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur"
+			data-scroll="true" navbar-scroll="true">
+			<div class="container-fluid py-1 px-3">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+						<li class="breadcrumb-item text-sm">
+							<a class="opacity-5 text-dark" href="javascript:;">Página</a>
+						</li>
+						<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Configuración</li>
+					</ol>
+					<h6 class="font-weight-bolder mb-0">Producto</h6>
+				</nav>
+
+				<div th:replace="layout::nav-estatico">
+				</div>
+			</div>
+		</nav>
+
+		<div class="container-fluid py-4">
+			<div class="row">
+				<div class="col-lg-6">
+					<h4>Realice los siguientes cambios</h4>
+					<p>Intentamos constantemente expresarnos y hacer realidad nuestros sueños. Si tienes la oportunidad de jugar.</p>
+				</div>
+			</div>
+			<div class="row mt-4">
+				<div class="col-lg-4">
+					<div class="card mt-4" data-animation="true">
+						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 ">
+							<a class="d-block blur-shadow-image">
+								<img class="w-100 ms-0 border-radius-lg" th:src="@{'/images/' + ${producto.imagen}}"
+									th:alt="${producto.imagen}">
+							</a>
+							<div class="colored-shadow"
+								style="background-image: url(&quot;./assets/img/products/product-11.jpg&quot;);">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-8 mt-lg-0 mt-4">
+					<form th:action="@{/producto/guardar}" th:object="${producto}" method="post" enctype="multipart/form-data">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="font-weight-bolder">Información sobre el producto</h5>
+								<div class="row mt-4">
+									<div class="col-12 col-sm-4">
+										<div class="input-group input-group-static is-filled" hidden>
+											<label class="form-label">ID</label>
+											<input type="text" class="form-control ps-3" th:field="*{idProducto}">
+										</div>
+										<div class="input-group input-group-static is-filled">
+											<label class="form-label">Nombre</label>
+											<input type="text" class="form-control ps-3" th:field="*{nombre}">
+										</div>
+									</div>
+									<div class="col-12 col-sm-4 mt-3 mt-sm-0">
+										<div class="input-group input-group-dynamic is-filled">
+											<label class="form-label">Marca</label>
+											<input type="text" class="form-control ps-3" th:field="*{marca}">
+										</div>
+									</div>
+								</div>
+								<div class="row mt-5">
+									<div class="col-4">
+										<div class="input-group input-group-dynamic is-filled">
+											<label class="form-label">Color</label>
+											<input type="text" class="form-control ps-3" th:field="*{color}">
+										</div>
+									</div>
+									<div class="col-4">
+										<div class="input-group input-group-dynamic is-filled">
+											<label class="form-label">Estado</label>
+											<select class="form-control ps-3" id="exampleFormControlSelect1" th:field="*{estado}">
+												<option th:value="'1'">Con Stock</option>
+												<option th:value="'0'">Sin Stock</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="row mt-3">
+									<div class="col-sm-6">
+										<label class="mt-4">Description</label>
+										<p class="form-text text-muted text-xs ms-1 d-inline">
+											(optional)
+										</p>
+										<textarea class="ps-2 form-control  border border-primary" id="exampleFormControlTextarea1" rows="3" th:field="*{descripcion}"></textarea>
+									</div>
+									<div class="col-sm-6">
+										<label class="mt-4">Seleccione una Imagen</label>
+										<p class="form-text text-muted text-xs ms-1 d-inline">
+											(optional)
+										</p>
+										<input type="file" class="form-control ps-3 border border-primary" name="file">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card mt-3">
+							<div class="card-body">
+								<div class="row">
+									<h5 class="font-weight-bolder mb-3">Precio</h5>
+									<div class="col-3">
+										<div class=" input-group input-group-dynamic is-filled">
+											<label class="form-label">Precio</label>
+											<input type="text" class="form-control ps-3" th:field="*{precio}">
+										</div>
+									</div>
+									<div class="col-4">
+										<select class="form-control ps-3" name="choices-sizes" id="choices-currency-edit" readonly="readonly">
+											<option value="" selected="">PEN</option>
+										</select>
+									</div>
+									<div class="col-5">
+										<div class="input-group input-group-dynamic is-filled">
+											<label class="form-label">SKU</label>
+											<input type="text" class="form-control ps-3" th:field="*{stock}" readonly="readonly">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class=" mt-4 col-lg-6 text-right d-flex flex-column justify-content-center">
+							<button type="submit"
+								class="btn bg-gradient-primary mb-0 ms-lg-auto me-lg-0 me-auto mt-lg-0 mt-2">GUARDAR</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+		</div>
+
+
+		<div th:replace="layout::footer"></div>
+	</main>
+
+	<script>
+		var win = navigator.platform.indexOf('Win') > -1;
+		if (win && document.querySelector('#sidenav-scrollbar')) {
+			var options = {
+				damping: '0.5'
+			}
+			Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+		}
+	</script>
+
+	<!-- Layout Configuracion -->
+	<div th:replace="layout::configuracion"></div>
+
+	<!-- Layout Pintado  -->
+	<script th:replace="layout::pintado-script"></script>
+
+	<div th:replace="moduloRol/listarRol::grupo-script"></div>
+</body>
+</html>

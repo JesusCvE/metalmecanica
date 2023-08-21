@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="moduloRol/listarRol::style-head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body class="g-sidenav-show  bg-gray-200">
+	<aside th:replace="moduloRol/listarRol::logo-nav"></aside>
+
+	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+		<!-- Navbar -->
+		<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
+                    position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur"
+			data-scroll="true" navbar-scroll="true">
+			<div class="container-fluid py-1 px-3">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+						<li class="breadcrumb-item text-sm">
+							<a class="opacity-5 text-dark" href="javascript:;">Página</a>
+						</li>
+						<li class="breadcrumb-item text-sm text-dark active" aria-current="page">Home</li>
+					</ol>
+					<h6 class="font-weight-bolder mb-0">Venta</h6>
+				</nav>
+
+				<div th:replace="layout::nav-estatico">
+				</div>
+			</div>
+		</nav>
+
+		<!-- Contenido <div class="container-fluid py-4"> -->
+
+		<div class="container-fluid py-4">
+
+			<div class="row">
+				<div class="col-12">
+					<div class="card my-4">
+						<div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+							<div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+								<h6 class="text-white text-capitalize ps-3">Lista de Ventas</h6>
+							</div>
+						</div>
+						<div class="card-header pb-0 p-3">
+							<div class="row">
+								<div class="col-6 d-flex align-items-center">
+								</div>
+								<div class="col-6 text-end">
+									<a class="btn bg-gradient-dark mb-0" th:href="@{/venta/nuevo}"><i
+											class="material-icons text-sm">add</i>&nbsp;&nbsp;GENERAR NUEVA VENTA</a>
+									<button class="btn btn-outline-primary btn-sm export mb-0 mt-sm-0 mt-1 btnExportar2"
+									data-type="csv" type="button" name="button" id="btnExportar2">Exportar</button>
+								</div>
+							</div>
+						</div>
+                        
+						<div class="card-body px-0 pb-2">
+							<div class="table-responsive p-0">
+								<table class="table order-table align-items-center justify-content-center mb-0 tabla2" id="tabla2">
+									<thead>
+										<tr>
+											<th class="text-uppercase text-secondary text-xxs text-center font-weight-bolder opacity-7">Identificador</th>
+											<th class="text-uppercase text-secondary text-xxs text-center font-weight-bolder opacity-7">Fecha</th>
+											<th class="text-uppercase text-secondary text-xxs text-center font-weight-bolder opacity-7">Documento</th>
+											<th class="text-uppercase text-secondary text-xxs text-center font-weight-bolder opacity-7">Importe Total</th>
+											<th class="text-uppercase text-secondary text-xxs text-center font-weight-bolder opacity-7">Tipo de Comprobante</th>
+											<th class="text-uppercase text-secondary text-xxs text-center font-weight-bolder opacity-7">Comprador</th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="venta : ${listarVenta}">
+											<td class="text-center">
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-s" th:text="${venta.idVenta}"></h6>
+												</div>
+											</td>
+											<td class="text-center">
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm" th:text="${venta.fecha}"></h6>
+												</div>
+											</td>
+											<td class="text-center">
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm" th:text="${venta.documento}"></h6>
+												</div>
+											</td>
+											<td class="text-center">
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="mb-0 text-sm" th:text="${venta.importeTotal}"></h6>
+												</div>
+											</td>
+											<td class="align-middle text-center">
+												<h6 class="mb-0 text-sm" th:text="${venta.tipoComprobante}"></h6>
+											</td>
+											<td class="text-center">
+												<div class="d-flex flex-column justify-content-center">
+													<h6 class="text-secondary text-xs font-weight-bold" th:text="${venta.empleado.nombres}"></h6>
+												</div>
+											</td>
+											<td class="align-middle">
+												<div class="float-start bg-gradient-success p-2 shadow-dark border-radius-md">
+													<a th:href="@{/venta/{id}(id=${venta.idVenta})}" class="text-white">
+														<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+															<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+															<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+														</svg>
+													</a>
+												</div>
+												<div  class="float-end bg-gradient-danger p-2 shadow-dark border-radius-md">
+													<a th:href="@{/venta/eliminar/{id}(id=${venta.idVenta})}"
+														class="text-white">
+														<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash-fill"viewBox="0 0 16 16">
+															<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+														</svg>
+													</a>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- Fin de Contenido -->
+
+		<!-- End Navbar -->
+
+        
+		<div th:replace="layout::footer"></div>
+	</main>
+    
+	<!-- Layout Configuracion -->
+	<div th:replace="layout::configuracion"></div>
+
+	<!-- Layout Pintado  -->
+	<script th:replace="layout::pintado-script"></script>
+	<!-- Modal Alerta Eliminacion -->
+    <div th:replace="moduloRol/listarRol::modal-eliminacion"></div>
+
+	<div th:replace="moduloRol/listarRol::grupo-script"></div>
+
+	<script src="../assets/js/tienda.js"></script>
+	<!-- <script src="../assets/js/scrip.js"></script> -->
+	
+	<script>
+		const btnExportar = document.querySelector("#btnExportar2"),
+			tabla = document.querySelector("#tabla2");
+	
+		btnExportar.addEventListener("click", function () {
+			let tableExport = new TableExport(tabla, {
+				exportButtons: false,
+				filename: "Reporte de Tabla",
+				sheetname: "Reporte",
+			});
+			let datos = tableExport.getExportData();
+			console.log(datos);
+			let preferenciasDocumento = datos.tabla2.xlsx;
+			tableExport.export2file(
+				preferenciasDocumento.data,
+				preferenciasDocumento.mimeType,
+				preferenciasDocumento.filename,
+				preferenciasDocumento.fileExtension,
+				preferenciasDocumento.merges,
+				preferenciasDocumento.RTL,
+				preferenciasDocumento.sheetname
+			);
+		});
+	</script>
+</body>
+
+</html>

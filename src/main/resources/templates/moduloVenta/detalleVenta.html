@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="moduloRol/listarRol::style-head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body class="g-sidenav-show  bg-gray-200">
+	<aside th:replace="moduloRol/listarRol::logo-nav"></aside>
+
+	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
+                    position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur"
+            data-scroll="true" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm">
+                            <a class="opacity-5 text-dark"href="javascript:;">Página</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Configuración</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Empleado</h6>
+                </nav>
+
+                <div th:replace="layout::nav-estatico">
+                </div>
+            </div>
+        </nav>
+		
+		<div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <div class="card mt-4">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-capitalize ps-3">Procesar pago...</h6>
+                            </div>
+                        </div>
+                        <div class="card-body p-5 pb-0">
+                            <form role="form" th:action="@{/venta/guardar}" th:object="${venta}" method="post" style="height: 45vh;">
+                                <div class="input-group input-group-static mb-5 separacion tamanio1 float-start">
+                                    <label>Código de Venta</label>
+                                    <input type="number" class="form-control ps-3" th:field="*{idVenta}" readonly="readonly" >
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio1 float-start">
+                                    <label for="exampleFormControlSelect1" class="ms-0">Fecha de Venta</label>
+                                    <input type="date" class="form-control ps-3" id="fechaActual" th:field="*{fecha}" readonly="readonly">
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start">
+                                    <label>Documento</label>
+                                    <input type="text" class="form-control ps-3" th:field="*{documento}" readonly="readonly">
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start">
+                                    <label for="exampleFormControlSelect1" class="ms-0">Nombre de Empleado</label>
+                                    <select class="form-control ps-3 noDistor" id="exampleFormControlSelect1" th:field="*{empleado.idEmpleado}" disabled>
+                                        <option th:each="empleado : ${listaEmpleado}" th:text="${empleado.nombres}" th:value="${empleado.idEmpleado}">
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio2 float-start">
+                                    <label>Importe Total</label>
+                                    <input type="text" class="form-control ps-3" th:field="*{importeTotal}" readonly="readonly">
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start">
+                                    <label for="exampleFormControlSelect1" class="ms-0">Tipo de Comprobante</label>
+                                    <select class="form-control ps-3 noDistor" id="selectOptionPago2" th:field="*{tipoComprobante}" disabled>
+                                        <option th:value="'Factura'">FACTURA</option>
+                                        <option th:value="'Boleta'">BOLETA</option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start" id="ruc-group2">
+                                    <label>Ruc</label>
+                                    <input type="number" class="form-control ps-3" th:field="*{ruc}" readonly="readonly">
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio2 float-start" id="razon-social-group2">
+                                    <label>Razon Social</label>
+                                    <input type="text" class="form-control ps-3" th:field="*{razonSocial}" readonly="readonly">
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="position-fixed bottom-1 end-1 z-index-2">
+                <div class="toast fade hide p-2 bg-white" role="alert" aria-live="assertive" id="successToast"
+                    aria-atomic="true">
+                    <div class="toast-header border-0">
+                        <i class="material-icons text-success me-2">
+                            check
+                        </i>
+                        <span class="me-auto font-weight-bold">Material Dashboard </span>
+                        <small class="text-body">11 mins ago</small>
+                        <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal dark m-0">
+                    <div class="toast-body">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+                <div class="toast fade hide p-2 mt-2 bg-gradient-info" role="alert" aria-live="assertive" id="infoToast"
+                    aria-atomic="true">
+                    <div class="toast-header bg-transparent border-0">
+                        <i class="material-icons text-white me-2">
+                            notifications
+                        </i>
+                        <span class="me-auto text-white font-weight-bold">Material Dashboard </span>
+                        <small class="text-white">11 mins ago</small>
+                        <i class="fas fa-times text-md text-white ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal light m-0">
+                    <div class="toast-body text-white">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+                <div class="toast fade hide p-2 mt-2 bg-white" role="alert" aria-live="assertive" id="warningToast"
+                    aria-atomic="true">
+                    <div class="toast-header border-0">
+                        <i class="material-icons text-warning me-2">
+                            travel_explore
+                        </i>
+                        <span class="me-auto font-weight-bold">Material Dashboard </span>
+                        <small class="text-body">11 mins ago</small>
+                        <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal dark m-0">
+                    <div class="toast-body">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+                <div class="toast fade hide p-2 mt-2 bg-white" role="alert" aria-live="assertive" id="dangerToast"
+                    aria-atomic="true">
+                    <div class="toast-header border-0">
+                        <i class="material-icons text-danger me-2">
+                            campaign
+                        </i>
+                        <span class="me-auto text-gradient text-danger font-weight-bold">Material Dashboard </span>
+                        <small class="text-body">11 mins ago</small>
+                        <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal dark m-0">
+                    <div class="toast-body">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+
+		<div th:replace="layout::footer"></div>
+	</main>
+
+
+	<script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+    </script>
+    
+    <script>
+        // Obtener referencias a los elementos del DOM
+        const tipoComprobanteSelect = document.querySelector('#selectOptionPago2');
+        const rucGroup = document.querySelector('#ruc-group2');
+        const razonSocialGroup = document.querySelector('#razon-social-group2');
+
+        // Función para mostrar/ocultar los campos de RUC y Razón Social
+        function toggleRucRazonSocial() {
+        console.log('Tipo de Comprobante seleccionado:', tipoComprobanteSelect.value);
+        if (tipoComprobanteSelect.value === 'Factura') {
+            console.log('Mostrando campos de RUC y Razón Social');
+            rucGroup.classList.remove('hidden');
+            razonSocialGroup.classList.remove('hidden');
+        } else {
+            console.log('Ocultando campos de RUC y Razón Social');
+            rucGroup.classList.add('hidden');
+            razonSocialGroup.classList.add('hidden');
+        }
+        }
+
+        // Agregar un controlador de eventos para el cambio en el menú desplegable de Tipo de Comprobante
+        tipoComprobanteSelect.addEventListener('change', toggleRucRazonSocial);
+
+        // Llamar a la función toggleRucRazonSocial al cargar la página para establecer el estado inicial correcto
+        toggleRucRazonSocial();
+    </script>
+
+    <script>
+        window.onload = function () {
+
+            var fecha = new Date(); //Fecha actual
+            var mes = fecha.getMonth() + 1; //obteniendo mes
+            var dia = fecha.getDate(); //obteniendo dia
+            var ano = fecha.getFullYear(); //obteniendo año
+            if (dia < 10)
+                dia = '0' + dia; //agrega cero si el menor de 10
+            if (mes < 10)
+                mes = '0' + mes //agrega cero si el menor de 10
+            document.getElementById('fechaActual').value = ano + "-" + mes + "-" + dia;
+        }
+    </script>
+
+	<!-- Layout Configuracion -->
+	<div th:replace="layout::configuracion"></div>
+		
+	<!-- Layout Pintado  -->
+	<script th:replace="layout::pintado-script"></script>
+
+	<div th:replace="moduloRol/listarRol::grupo-script"></div>
+    
+</body>
+</html>

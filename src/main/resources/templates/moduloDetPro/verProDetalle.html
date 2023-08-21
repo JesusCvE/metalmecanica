@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="moduloRol/listarRol::style-head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body class="g-sidenav-show  bg-gray-200">
+
+	<aside th:replace="moduloRol/listarRol::logo-nav"></aside>
+
+	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
+                    position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur"
+            data-scroll="true" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm">
+                            <a class="opacity-5 text-dark"href="javascript:;">Página</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Home</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Producto</h6>
+                </nav>
+
+                <div th:replace="layout::nav-estatico">
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-10 mx-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="mb-4">Detalle del Producto</h5>
+                            <div class="row itemm">
+                                <div class="col-xl-5 col-lg-6 text-center">
+                                    <img class="w-80 border-radius-lg shadow-lg mx-auto mb-5 item-img" th:src="@{'/images/' + ${producto.imagen}}" th:alt="${producto.imagen}">
+                                </div>
+                                <div class="col-lg-5 mx-auto">
+                                    <h3 class="mt-lg-0 mt-4 item-nombre" th:text="${producto.nombre}"></h3>
+                                    <div class="rating">
+                                        <i class="material-icons text-lg">grade</i>
+                                        <i class="material-icons text-lg">grade</i>
+                                        <i class="material-icons text-lg">grade</i>
+                                        <i class="material-icons text-lg">grade</i>
+                                        <i class="material-icons text-lg">star_outline</i>
+                                    </div>
+                                    <br>
+
+                                    <h6 class="mb-0 mt-3" >Precio</h6>
+                                    <h5 class="item-precio" th:text="'S/. ' + ${producto.precio}" th:value="${producto.precio}" id="precio">20</h5>
+                                    <span class="badge badge-success">In Stock</span>
+
+                                    <br>
+                                    <label class="mt-4">Descripción</label>
+                                    <ul>
+                                        <li th:text="${producto.descripcion}">The most beautiful curves of this swivel stool adds an elegant touch to any environment</li>
+                                    </ul>
+                                    <div class="row mt-4">
+                                        <div class="col-lg-4 mb-4 mt-lg-0 mt-2">
+                                            <label class="ms-0">Color</label>
+                                            <h6 th:text="${producto.color}"></h6>
+                                        </div>
+                                        <div class="col-lg-4 mb-4">
+                                            <label class="ms-0">Marca</label>
+                                            <h6 th:text="${producto.marca}"></h6>
+                                        </div>
+                                        <div class="col-lg-4 d-block mb-5">
+                                            <label class="ms-0">Cantidad</label>
+                                            <h6 th:text="${producto.stock}"></h6>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-5">
+                                        <div class="col-lg-5 flo">
+                                            <button class="btn bg-gradient-primary mb-0 mt-lg-auto addToCart btn-toast" id="btnToasts">Agregar al Carrito</button>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row mt-5">
+                                        <div class="col-lg-5 flo">
+                                            <a th:href="@{/venta/nuevo}" class="btn bg-gradient-primary mb-0 mt-lg-auto w-100 addToCart" type="button"
+                                                name="button">Comprar</a>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<!-- Fin de Contenido -->
+
+        <!-- <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="mr-auto">Mi Toast</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Cerrar">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                ¡Hola! Soy un toast de Bootstrap.
+            </div>
+        </div> -->
+
+        
+
+        
+
+		<div th:replace="layout::footer"></div>
+	</main>
+
+	<!-- Layout Configuracion -->
+	<div th:replace="layout::configuracion"></div>
+	<div th:replace="moduloRol/listarRol::grupo-script"></div>
+
+    <!-- Modal Alerta Eliminacion -->
+    <div th:replace="moduloRol/listarRol::modal-eliminacion"></div>
+    
+
+    <div id="toast1" class="toast bg-gradient-success" role="alert" aria-live="assertive" data-delay="1500" aria-atomic="true" data-autohide="true">
+        <div class="toast-header bg-gradient-success">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-all" viewBox="0 0 16 16">
+                <path d="M8.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L2.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093L8.95 4.992a.252.252 0 0 1 .02-.022zm-.92 5.14.92.92a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 1 0-1.091-1.028L9.477 9.417l-.485-.486-.943 1.179z"/>
+            </svg>
+            <strong class="mr-auto ml-4">Justo ahora</strong>
+        </div>
+        <div class="toast-body text-white">
+            Pedido añadido a su carrito
+        </div>
+    </div>
+
+    <script>
+        $("#btnToasts").click(function(){
+            $("#toast1").toast({delay: 1500}).toast('show'); 
+        });
+    </script>
+    
+    <script src="../assets/js/tienda.js"></script>
+
+</body>
+
+
+</html>

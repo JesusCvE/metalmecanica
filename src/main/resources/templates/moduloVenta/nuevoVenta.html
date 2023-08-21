@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="moduloRol/listarRol::style-head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body class="g-sidenav-show  bg-gray-200">
+	<aside th:replace="moduloRol/listarRol::logo-nav"></aside>
+
+	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
+                    position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur"
+            data-scroll="true" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm">
+                            <a class="opacity-5 text-dark"href="javascript:;">Página</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Venta</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Venta</h6>
+                </nav>
+
+                <div th:replace="layout::nav-estatico">
+                </div>
+            </div>
+        </nav>
+		
+		<div class="container-fluid py-4">
+            
+            <div class="row">
+                <div class="col-7">
+                    <div class="card mt-4">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-capitalize ps-3">Mi pedido</h6>
+                            </div>
+                        </div>
+                        
+                        <div class="card-body p-5 pb-0">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="shopping-cart-header">
+                                        <h6>Producto</h6>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="shopping-cart-header">
+                                        <h6>Cantidad</h6>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="shopping-cart-header">
+                                        <h6>Precio</h6>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                            <div class="shopping-cart-item shoppingCartItemsContainer">
+                               
+                                <hr class="bg-gradient-dark">
+                            </div>
+                            <hr class="bg-gradient-dark mt-0">
+                            <div class="row pb-3">
+                                <div class="col-6">
+                                    <div class="shopping-cart-header">
+                                        <h6></h6>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="shopping-cart-header">
+                                        <h6 class="text-primary text-xl font-weight-bolder ps-2">TOTAL</h6>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="shopping-cart-header">
+                                        <h6 class="shoppingCartTotal text-primary text-xm font-weight-bolder ps-2" id="carrtitoTotal"></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <div class="card mt-4">
+                        <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                            <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
+                                <h6 class="text-white text-capitalize ps-3">Procesar pago...</h6>
+                            </div>
+                        </div>
+                        <div class="card-body p-5 pb-0">
+                            <form role="form" th:action="@{/venta/guardar}" th:object="${venta}" method="post">
+                                <div class="input-group input-group-static mb-5 separacion tamanio1 float-start hidden" >
+                                    <label>Código de Venta</label>
+                                    <input type="number" class="form-control ps-3 deshabilitado" th:field="*{idVenta}" readonly="readonly">
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio1 float-start">
+                                    <label for="exampleFormControlSelect1" class="ms-0">Fecha de Venta</label>
+                                    <input type="date" class="form-control ps-3" id="fechaActual" th:field="*{fecha}" readonly="readonly">
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio1 float-start">
+                                    <label for="exampleFormControlSelect1" class="ms-0">Tipo de Comprobante</label>
+                                    <select class="form-control ps-3" id="selectOptionPago" th:field="*{tipoComprobante}">
+                                        <option th:value="'Boleta'">BOLETA</option>
+                                        <option th:value="'Factura'">FACTURA</option>
+                                    </select>
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio1 float-start d-block" id="ruc-group">
+                                    <label>RUC</label>
+                                    <input type="text" class="form-control ps-3" id="ruc-input" th:field="*{ruc}">
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio1 float-end d-block" id="razon-social-group">
+                                    <label>Razón Social</label>
+                                    <input type="text" class="form-control ps-3" id="razon-social-input" th:field="*{razonSocial}">
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start">
+                                    <label>Documento</label>
+                                    <input type="number" class="form-control ps-3" th:field="*{documento}" required>
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start">
+                                    <label>Nombre del titular</label>
+                                    <input type="text" class="form-control ps-3" required>
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio2 float-start">
+                                    <label>Apellidos del titular</label>
+                                    <input type="text" class="form-control ps-3" required>
+                                </div>
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start" sec:authorize="hasRole('USER')">
+                                    <label for="card-input">Numero de tarjeta</label>
+                                    <input type="text" class="form-control ps-3" id="card-input" placeholder="1234 5678 9012 3456" maxlength="19">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text ps-3" style="padding-right: 20px;">
+                                            <i class="fa fa-credit-card"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio2 separacion float-start" sec:authorize="hasRole('USER')">
+                                    <label>Codigo de seguridad</label>
+                                    <input type="number" class="form-control ps-3" id="cvv-input" placeholder="CVV" required maxlength="3" pattern="\d{3}">
+                                </div>
+                                <div class="input-group input-group-static mb-5 tamanio2 float-start" sec:authorize="hasRole('USER')">
+                                    <label>Fecha de vencimiento</label>
+                                    <input type="text" class="form-control ps-3 date-input" id="date-input" name="date-input" placeholder="MM/YY" required minlength="5" maxlength="5">
+                                </div>
+
+                                <div class="input-group input-group-static mb-5 separacion tamanio2 float-start hidden">
+                                    <label>Importe Total (S/. )</label>
+                                    <input type="number" class="form-control ps-3 shoppingCartTotalInput" th:field="*{importeTotal}" readonly="readonly">
+                                </div>
+                            
+                                <!-- <div class="input-group input-group-static mb-5 separacion tamanio2 float-start">
+                                    <label for="exampleFormControlSelect1" class="ms-0">Tipo de Comprobante</label>
+                                    <select class="form-control ps-3" id="selectOptionPago" th:field="*{tipoComprobante}">
+                                        <option th:value="'Boleta'">BOLETA</option>
+                                        <option th:value="'Factura'">FACTURA</option>
+                                    </select>
+                                </div> -->
+                                <div class="input-group input-group-static mb-5 separacion tamanio1 float-start">
+                                    <label for="exampleFormControlSelect1" class="ms-0">Nombre de Empleado</label>
+                                    <select class="form-control ps-3" id="exampleFormControlSelect1" th:field="*{empleado.idEmpleado}">
+                                        <option th:each="empleado, iterStat : ${listaEmpleado}" th:text="${empleado.nombres}" th:value="${empleado.idEmpleado}" th:selected="${!#authorization.expression('hasRole(''ADMIN'')') and iterStat.index == 0}">
+                                        </option>
+                                    </select>
+                                </div>
+                                
+                                <div class="input-group input-group-static tamanio1 mb-5 float-start">
+                                    <label>Dirección</label>
+                                    <input type="text" class="form-control ps-3" required>
+                                </div>
+                                <!-- <div class="input-group input-group-static mb-5 float-start d-block">
+                                    <label>Productos</label>
+                                    <br>
+                                    <textarea name="" id="" cols="100" rows="10" class="textoArea"></textarea>
+                                </div> -->
+                                <div class="col-lg-3 col-sm-6 col-12 mt-lg-0 mt-2 float-start mb-5">
+                                    <button class="btn bg-gradient-danger w-100 mb-0 toast-btn" type="button"
+                                        data-target="dangerToast">CANCELAR</button>
+                                </div>
+                                <div class="col-lg-3 col-sm-6 col-12 float-end mb-5">
+                                    <button class="btn bg-gradient-success w-100 mb-0 toast-btn clearLocal" type="submit"
+                                        data-target="successToast">PROCESAR</button>
+                                </div>
+                            </form> 
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="position-fixed bottom-1 end-1 z-index-2">
+                <div class="toast fade hide p-2 bg-white" role="alert" aria-live="assertive" id="successToast"
+                    aria-atomic="true">
+                    <div class="toast-header border-0">
+                        <i class="material-icons text-success me-2">
+                            check
+                        </i>
+                        <span class="me-auto font-weight-bold">Material Dashboard </span>
+                        <small class="text-body">11 mins ago</small>
+                        <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal dark m-0">
+                    <div class="toast-body">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+                <div class="toast fade hide p-2 mt-2 bg-gradient-info" role="alert" aria-live="assertive" id="infoToast"
+                    aria-atomic="true">
+                    <div class="toast-header bg-transparent border-0">
+                        <i class="material-icons text-white me-2">
+                            notifications
+                        </i>
+                        <span class="me-auto text-white font-weight-bold">Material Dashboard </span>
+                        <small class="text-white">11 mins ago</small>
+                        <i class="fas fa-times text-md text-white ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal light m-0">
+                    <div class="toast-body text-white">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+                <div class="toast fade hide p-2 mt-2 bg-white" role="alert" aria-live="assertive" id="warningToast"
+                    aria-atomic="true">
+                    <div class="toast-header border-0">
+                        <i class="material-icons text-warning me-2">
+                            travel_explore
+                        </i>
+                        <span class="me-auto font-weight-bold">Material Dashboard </span>
+                        <small class="text-body">11 mins ago</small>
+                        <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal dark m-0">
+                    <div class="toast-body">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+                <div class="toast fade hide p-2 mt-2 bg-white" role="alert" aria-live="assertive" id="dangerToast"
+                    aria-atomic="true">
+                    <div class="toast-header border-0">
+                        <i class="material-icons text-danger me-2">
+                            campaign
+                        </i>
+                        <span class="me-auto text-gradient text-danger font-weight-bold">Material Dashboard </span>
+                        <small class="text-body">11 mins ago</small>
+                        <i class="fas fa-times text-md ms-3 cursor-pointer" data-bs-dismiss="toast"
+                            aria-label="Close"></i>
+                    </div>
+                    <hr class="horizontal dark m-0">
+                    <div class="toast-body">
+                        Hello, world! This is a notification message.
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+		<div th:replace="layout::footer"></div>
+	</main>
+
+    <!-- Modal Alerta Eliminacion -->
+    <div th:replace="moduloRol/listarRol::modal-eliminacion"></div>
+
+	<script>
+        var win = navigator.platform.indexOf('Win') > -1;
+        if (win && document.querySelector('#sidenav-scrollbar')) {
+            var options = {
+                damping: '0.5'
+            }
+            Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+        }
+
+        // Validacion de mes y año
+        var dateInput = document.getElementById('date-input');
+
+        dateInput.addEventListener('input', function(event) {
+            // Obtener el valor actual del campo
+            var value = dateInput.value;
+
+            // Eliminar cualquier carácter que no sea un número
+            value = value.replace(/\D/g, '');
+
+            // Formatear el valor como mm/yy
+            if (value.length > 2) {
+                value = value.substr(0, 2) + '/' + value.substr(2);
+            }
+
+            // Asignar el valor formateado al campo
+            dateInput.value = value;
+        });
+
+        // Validacion de campos de los numeros de la tarjeta de credito
+        document.getElementById('card-input').addEventListener('keyup', function (e) {
+            var value = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')
+            var formattedValue = ''
+            for (var i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 == 0) {
+                    formattedValue += ' '
+                }
+                formattedValue += value.charAt(i)
+            }
+            e.target.value = formattedValue
+        })
+
+        const cvvInput = document.getElementById('cvv-input');
+
+        cvvInput.addEventListener('input', () => {
+            const cvvValue = cvvInput.value;
+            if (cvvValue.length > 3) {
+                cvvInput.value = cvvValue.slice(0, 3);
+            }
+        });
+        
+    </script>
+        
+    <script>
+        // Obtener referencias a los elementos del DOM
+        const tipoComprobanteSelect = document.querySelector('#selectOptionPago');
+        const rucGroup = document.querySelector('#ruc-group');
+        const razonSocialGroup = document.querySelector('#razon-social-group');
+
+        // Función para mostrar/ocultar los campos de RUC y Razón Social
+        function toggleRucRazonSocial() {
+        // console.log('Tipo de Comprobante seleccionado:', tipoComprobanteSelect.value);
+        if (tipoComprobanteSelect.value === 'Factura') {
+            // console.log('Mostrando campos de RUC y Razón Social');
+            rucGroup.classList.remove('hidden');
+            razonSocialGroup.classList.remove('hidden');
+        } else {
+            // console.log('Ocultando campos de RUC y Razón Social');
+            rucGroup.classList.add('hidden');
+            razonSocialGroup.classList.add('hidden');
+        }
+        }
+
+        // Agregar un controlador de eventos para el cambio en el menú desplegable de Tipo de Comprobante
+        tipoComprobanteSelect.addEventListener('change', toggleRucRazonSocial);
+
+        // Llamar a la función toggleRucRazonSocial al cargar la página para establecer el estado inicial correcto
+        toggleRucRazonSocial();
+    </script>
+
+    <!-- JS de GeneratePDF -->
+    <script src="https://unpkg.com/jspdf-invoice-template@1.4.0/dist/index.js"></script>
+
+    <script>
+        function generarPdf() {
+            var pdfObject = jsPDFInvoiceTemplate.default(props); //returns number of pages created
+            console.log("Object create: ", pdfObject)
+        }
+
+        var props = {
+            outputType: OutputType.Save,
+            returnJsPDFDocObject: true,
+            fileName: "Invoice 2021",
+            orientationLandscape: false,
+            compress: true,
+            logo: {
+                src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/logo.png",
+                type: 'PNG', //optional, when src= data:uri (nodejs case)
+                width: 53.33, //aspect ratio = width/height
+                height: 26.66,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
+                }
+            },
+            stamp: {
+                inAllPages: true, //by default = false, just in the last page
+                src: "https://raw.githubusercontent.com/edisonneza/jspdf-invoice-template/demo/images/qr_code.jpg",
+                type: 'JPG', //optional, when src= data:uri (nodejs case)
+                width: 20, //aspect ratio = width/height
+                height: 20,
+                margin: {
+                    top: 0, //negative or positive num, from the current position
+                    left: 0 //negative or positive num, from the current position
+                }
+            },
+            business: {
+                name: "Business Name",
+                address: "Albania, Tirane ish-Dogana, Durres 2001",
+                phone: "(+355) 069 11 11 111",
+                email: "email@example.com",
+                email_1: "info@example.al",
+                website: "www.example.al",
+            },
+            contact: {
+                label: "Invoice issued for:",
+                name: "Client Name",
+                address: "Albania, Tirane, Astir",
+                phone: "(+355) 069 22 22 222",
+                email: "client@website.al",
+                otherInfo: "www.website.al",
+            },
+            invoice: {
+                label: "Invoice #: ",
+                num: 19,
+                invDate: "Payment Date: 01/01/2021 18:12",
+                invGenDate: "Invoice Date: 02/02/2021 10:17",
+                headerBorder: false,
+                tableBodyBorder: false,
+                header: [
+                    {
+                        title: "#",
+                        style: {
+                            width: 10
+                        }
+                    },
+                    {
+                        title: "Title",
+                        style: {
+                            width: 30
+                        }
+                    },
+                    {
+                        title: "Description",
+                        style: {
+                            width: 80
+                        }
+                    },
+                    { title: "Price" },
+                    { title: "Quantity" },
+                    { title: "Unit" },
+                    { title: "Total" }
+                ],
+                table: Array.from(Array(10), (item, index) => ([
+                    index + 1,
+                    "There are many variations ",
+                    "Lorem Ipsum is simply dummy text dummy text ",
+                    200.5,
+                    4.5,
+                    "m2",
+                    400.5
+                ])),
+                additionalRows: [{
+                    col1: 'Total:',
+                    col2: '145,250.50',
+                    col3: 'ALL',
+                    style: {
+                        fontSize: 14 //optional, default 12
+                    }
+                },
+                {
+                    col1: 'VAT:',
+                    col2: '20',
+                    col3: '%',
+                    style: {
+                        fontSize: 10 //optional, default 12
+                    }
+                },
+                {
+                    col1: 'SubTotal:',
+                    col2: '116,199.90',
+                    col3: 'ALL',
+                    style: {
+                        fontSize: 10 //optional, default 12
+                    }
+                }],
+                invDescLabel: "Invoice Note",
+                invDesc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary.",
+            },
+            footer: {
+                text: "The invoice is created on a computer and is valid without the signature and stamp.",
+            },
+            pageEnable: true,
+            pageLabel: "Page ",
+        };
+    </script>
+    
+    <script>
+        window.onload = function () {
+
+            var fecha = new Date(); //Fecha actual
+            var mes = fecha.getMonth() + 1; //obteniendo mes
+            var dia = fecha.getDate(); //obteniendo dia
+            var ano = fecha.getFullYear(); //obteniendo año
+            if (dia < 10)
+                dia = '0' + dia; //agrega cero si el menor de 10
+            if (mes < 10)
+                mes = '0' + mes //agrega cero si el menor de 10
+            document.getElementById('fechaActual').value = ano + "-" + mes + "-" + dia;
+        }
+    </script>
+
+    <script>
+        document.querySelector('.clearLocal').addEventListener('click', () => {
+            localStorage.clear();
+        });
+    </script>
+
+	<!-- Layout Configuracion -->
+	<div th:replace="layout::configuracion"></div>
+		
+	<!-- Layout Pintado  -->
+	<script th:replace="layout::pintado-script"></script>
+
+	<div th:replace="moduloRol/listarRol::grupo-script"></div>
+    
+    <script src="../assets/js/tienda.js"></script>
+    <script src="../assets/js/generatePdf.js"></script>
+</body>
+</html>

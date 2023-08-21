@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head th:replace="moduloRol/listarRol::style-head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body class="g-sidenav-show  bg-gray-200">
+	<aside th:fragment="logo-nav" class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-gradient-dark" id="sidenav-main">
+        <div class="sidenav-header">
+            <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                aria-hidden="true" id="iconSidenav"></i>
+            <a class="navbar-brand m-0" href="#">
+                <img src="../assets/img/my-img/icon-metal.png" class="navbar-brand-img h-100" alt="main_logo">
+                <span class="ms-1 font-weight-bold text-white">MECÁNICA DUEÑAS</span>
+            </a>
+        </div>
+        <hr class="horizontal light mt-0 mb-2">
+
+		<div th:replace="layout::nav-lateral" ></div>
+        
+    </aside>
+
+	<main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
+        <!-- Navbar -->
+        <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
+                    position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur"
+            data-scroll="true" navbar-scroll="true">
+            <div class="container-fluid py-1 px-3">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+                        <li class="breadcrumb-item text-sm">
+                            <a class="opacity-5 text-dark"href="javascript:;">Página</a>
+                        </li>
+                        <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Producto</li>
+                    </ol>
+                    <h6 class="font-weight-bolder mb-0">Catálogo de Productos</h6>
+                </nav>
+
+                <div th:replace="layout::nav-estatico">
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid py-4">
+            <div class="row">
+                <div class="col-8 d-flex float-end me-0">
+                    <div class="input-group border-radius-md w-50 bg-white input-group-outline colorInput">
+                        <input type="text" class="form-control col-md-3 light-table-filter colorInput" id="myInput" data-table="order-table" placeholder="Busca tu producto...">
+                    </div>
+                </div>
+                <div class="col-lg-12 position-relative z-index-2">
+                    <div class="row mt-5">
+                        <div class="col-lg-3 col-md-6 mb-5" th:each="producto : ${proDetalle}">
+                            <div class="card">
+                                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                    <a class="d-block blur-shadow-image text-center" th:href="@{/prodetalle/{id}(id=${producto.idProducto})}">
+                                        <img th:src="@{'/images/' + ${producto.imagen}}" th:alt="${producto.imagen}"
+                                            class="img-fluid border-radius-lg w-auto">
+                                    </a>
+                                    <div class="colored-shadow"
+                                        style="background-image: url(&quot;./assets/img/products/product-1-min.jpg&quot;);">
+                                    </div>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="d-flex mt-n6 mx-auto">
+                                        <a class="btn btn-link text-primary ms-auto border-0" data-bs-toggle="tooltip"
+                                            data-bs-placement="bottom" title="Refresh">
+                                            <i class="material-icons text-lg">refresh</i>
+                                        </a>
+                                        <button class="btn btn-link text-info me-auto border-0" data-bs-toggle="tooltip"
+                                            data-bs-placement="bottom" title="Edit">
+                                            <i class="material-icons text-lg">edit</i>
+                                        </button>
+                                    </div>
+                                    <h5 class="font-weight-normal mt-3">
+                                        <a th:href="@{/prodetalle/{id}(id=${producto.idProducto})}" th:text="${producto.nombre}">Cozy 5 Stars Apartment</a>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
+                                            <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                                            <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                                        </svg>
+                                    </h5>
+                                </div>
+                                <hr class="dark horizontal my-0">
+                                <div class="card-footer d-flex">
+                                    <p class="font-weight-normal my-auto" th:text="'S/. ' + ${producto.precio}"></p>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks-fill material-icons position-relative ms-auto text-lg me-1 my-auto" viewBox="0 0 16 16">
+                                        <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                                        <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+                                    </svg>
+
+                                    <h5 class="text-sm my-auto" th:text="${producto.marca}"></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="no-results" style="display: none;">Producto no disponible</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                
+        <!-- Fin de Contenido -->
+            
+        <!-- End Navbar -->
+            
+        <div th:replace="layout::footer"></div>
+    </main>
+
+    <!-- Modal Alerta Eliminacion -->
+    <div th:replace="moduloRol/listarRol::modal-eliminacion"></div>
+    
+
+    <!-- Layout Configuracion -->
+	<div th:replace="layout::configuracion"></div>
+    
+    <!-- Layout Pintado  -->
+	<script th:replace="layout::pintado-script"></script>
+
+
+    <div th:replace="moduloRol/listarRol::grupo-script"></div>
+
+    
+    <script src="../assets/js/tienda.js"></script>
+    
+    <script>
+        // Obtener el campo de entrada y agregar un controlador de eventos
+        const input = document.querySelector('#myInput');
+        input.addEventListener('keyup', filterProducts);
+
+        function filterProducts() {
+        // Obtener el valor del campo de entrada y convertirlo a minúsculas
+        const searchTerm = input.value.toLowerCase();
+
+        // Obtener todos los elementos del catálogo
+        const products = document.querySelectorAll('.card');
+
+        // Recorrer los elementos del catálogo
+        products.forEach(product => {
+            // Obtener el nombre del producto y convertirlo a minúsculas
+            const productName = product.querySelector('h5 a').textContent.toLowerCase();
+
+            // Comprobar si el nombre del producto incluye el término de búsqueda
+            if (productName.includes(searchTerm)) {
+            // Si coincide, mostrar el elemento
+            product.style.display = 'block';
+            } else {
+            // Si no coincide, ocultar el elemento
+            product.style.display = 'none';
+            }
+        });
+        }
+    </script>
+</body>
+</html>

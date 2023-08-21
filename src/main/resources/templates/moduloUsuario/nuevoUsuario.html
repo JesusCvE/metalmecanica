@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head th:replace="moduloRol/listarRol::style-head">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+
+<body>
+    <main class="main-content  mt-0">
+        <section>
+            <div class="page-header min-vh-100">
+                <div class="container">
+                    <div class="row">
+                        <div
+                            class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center"
+                                style="background-image: url('../assets/img/my-img/img-registro.jpg'); background-size: cover;">
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+                            <div class="card card-plain">
+                                <div class="card-header">
+                                    <h4 class="font-weight-bolder">Registrarse</h4>
+                                    <p class="mb-0">Introduzca su datos para poder continuar...</p>
+                                </div>
+                                <div class="card-body">
+                                    <form role="form" th:action="@{/usuario/guardar}" th:object="${usuario}" method="post">
+                                        <div class="input-group input-group-outline mb-3 tamanio1 float-start z-index-master">
+                                            <select class="form-control ps-3" id="exampleFormControlSelect1" th:field="*{tipoDoc}">
+                                                <option th:value="''" style="display: none;">Tipo de Documento</option>
+                                                <option th:value="'DNI'">DNI</option>
+                                                <option th:value="'RUC'">RUC</option>
+                                                <option th:value="'CE'">CE</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group input-group-outline mb-3 tamanio1 float-end">
+                                            <input type="number" class="form-control" th:field="*{nroDoc}" placeholder="Numero de Documento">
+                                        </div>
+                                        <div class="input-group input-group-outline mb-3 tamanio1 float-start">
+                                            <input type="text" class="form-control" th:field="*{userNom}" placeholder="Nombres">
+                                        </div>
+                                        <div class="input-group input-group-outline mb-3 tamanio1 float-end">
+                                            <input type="text" class="form-control" th:field="*{userApe}" placeholder="Apellidos">
+                                        </div>
+                                        
+                                        <div class="input-group input-group-outline mb-3 float-start focused is-focused">
+                                            <select class="form-control ps-3" id="exampleFormControlSelect1" th:field="*{sexo}">
+                                                <option th:value="''" style="display: none;">Sexo</option>
+                                                <option th:value="'Masculino'">Masculino</option>
+                                                <option th:value="'Femenino'">Femenimo</option>
+                                                <option th:value="'Otro'">Otro</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group input-group-outline my-0 tamanio1 float-end focused is-focused">
+                                            <input id="fecha" class="form-control"  type="date" name="nacimientotitular" th:field="*{nacimiento}" placeholder="Fecha de Nacimiento">
+                                        </div>
+                                        <div class="input-group input-group-outline mb-3 tamanio1 float-start">
+                                            <input type="tel" class="form-control" th:field="*{telefono}" placeholder="Teléfono">
+                                        </div>
+                                        <div class="input-group input-group-outline mb-3">
+                                            <input type="email" class="form-control" th:field="*{email}" placeholder="Correo Electrónico">
+                                        </div>
+                                        <div class="input-group input-group-outline mb-3 tamanio1 float-start">
+                                            <input type="password" class="form-control toggleable" th:field="*{pass}" placeholder="Contraseña">
+                                            <span class="eye-icon toggle-password"></span>
+                                        </div>
+                                        <div class="input-group input-group-outline mb-3 tamanio1 float-end">
+                                            <input type="password" class="form-control toggleable" placeholder="Repetir Contraseña">
+                                        </div>
+                                        <div class="form-check form-check-info text-start ps-0">
+                                            <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">Estoy de acuerdo en que el <a href="javascript:;"
+                                                    class="text-dark font-weight-bolder">Términos y condiciones</a>
+                                            </label>
+                                        </div>
+                                        <div class="text-center">
+                                            <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0">Registrarse</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                                    <p class="mb-2 text-sm mx-auto">¿Ya tiene una cuenta?
+                                        <a th:href="@{/login}" class="text-primary text-gradient font-weight-bold">Iniciar Sesión</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div th:replace="moduloRol/listarRol::grupo-script"></div>
+    <script>
+        window.addEventListener('load', function () {
+            document.getElementById('fecha').type = 'text';
+            document.getElementById('fecha').addEventListener('blur', function () {
+                document.getElementById('fecha').type = 'text';
+
+            });
+
+            document.getElementById('fecha').addEventListener('focus', function () {
+
+                document.getElementById('fecha').type = 'date';
+
+            });
+
+        });
+
+
+        const togglePassword = document.querySelectorAll('.toggle-password');
+
+            togglePassword.forEach(function (toggle) {
+                toggle.addEventListener('click', function (e) {
+                    const inputs = document.querySelectorAll('.toggleable');
+                    inputs.forEach(function (input) {
+                        const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                        input.setAttribute('type', type);
+                    });
+                    this.classList.toggle('hide-password');
+                });
+            });
+    </script>
+</body>
+</html>

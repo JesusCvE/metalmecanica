@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="moduloRol/listarRol::style-head">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body class="bg-gray-200">
+
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NKDMSK6" height="0" width="0"
+            style="display:none;visibility:hidden"></iframe></noscript>
+
+
+    <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
+        <div class="container">
+            <div class="sidenav-header">
+                <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                    aria-hidden="false" id="iconSidenav"></i>
+                <a class="navbar-brand m-0" href="#">
+                    <img src="../assets/img/my-img/icon-metal.png" class="navbar-brand-img w-20" alt="main_logo">
+                    <span class="ms-1 font-weight-bold text-white">MECÁNICA DUEÑAS</span>
+                </a>
+            </div>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </span>
+            </button>
+        </div>
+    </nav>
+
+    <main class="main-content  mt-0">
+        <div class="page-header align-items-start min-vh-100"
+            style="background-image: url('https://images.unsplash.com/photo-1497294815431-9365093b7331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1950&q=80');">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container my-auto">
+                <div class="row">
+                    <div class="col-lg-10 col-md-8 col-12 mx-auto my-8">
+                        <div class="card z-index-0 fadeIn3 fadeInBottom">
+                            <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                                <div class="bg-gradient-primary shadow-primary border-radius-lg py-3 pe-1">
+                                    <h4 class="text-white font-weight-bolder text-center mt-2 mb-0">FORMULARIO DE GARANTIA</h4>
+                                </div>
+                            </div>
+                            <div class="card-body my-4">
+                                <form role="form" class="text-start" th:action="@{/garantia/guardar}" th:object="${garantia}" method="post" enctype="multipart/form-data">
+                                    <div class="input-group input-group-outline my-3 w-auto text-justify">
+                                        <p>
+                                            Para la tienda <span class="font-weight-bold text-dark">Mecánica Dueñas</span> es primordial que te encuentres a gusto con el producto adquirido o servicios prestados,
+                                            por lo que para nosotros es importante que tanto el proceso de compra como el de devolución, en caso
+                                            de ser necesario, se lo más ágil y cómodo para tí posible.
+                                            Aunque nos esforzamos por ofrecerte la máxima información y asesoramiento de todos y cada uno de nuestros
+                                            productos y servicios, si observas algún defecto, puedes ponerte en contacto con nosotros para realizar la
+                                            devolución del producto, revisa siempre las condiciones de "Contratación, garantía y devolución" antes de realizar la solicitud:
+                                        </p>
+                                    </div>
+                                    <div class="input-group input-group-static mb-4 separacion tamanio1">
+                                        <label for="exampleFormControlSelect1" class="ms-0 text-bold">
+                                            * Indica el tipo de solicitud que deseas realizar:
+                                        </label>
+                                        <select class="form-control ps-3" id="exampleFormControlSelect1" th:field="*{tipo}" required>
+                                            <option th:value="''" style="display: none;">Seleccione el Tipo</option>
+                                            <option th:value="'GARANTIA'">GARANTIA</option>
+                                            <option th:value="'DEVOLUCIÓn'">DEVOLUCIÓN</option>
+                                            <option th:value="'DESISTIMIENTO'">DESISTIMIENTO</option>
+                                        </select>
+                                    </div>
+                                    <label for="exampleFormControlSelect1" class="ms-0 text-bold">
+                                        * Indica tus datos de contacto para la tramitación de la solicitud (NO se enviará publicidad alguna, el uso de estos datos es exclusivamente para la gestión de esta solicitud):
+                                    </label>
+                                    <div class="input-group input-group-static mb-4 separacion tamanio2 float-start">
+                                        <input type="text" class="form-control ps-3" placeholder="Razón Social (Opcional)" th:field="*{razSocial}">
+                                    </div>
+                                    <div class="input-group input-group-static mb-4 separacion tamanio2 float-start">
+                                        <input type="text" class="form-control ps-3" placeholder="Nombres" th:field="*{nombre}" required>
+                                    </div>
+                                    <div class="input-group input-group-static mb-4  tamanio2 float-start">
+                                        <input type="text" class="form-control  ps-3" placeholder="Apellidos" th:field="*{apellido}" required>
+                                    </div>
+                                    <div class="input-group input-group-static mb-4  tamanio2 separacion float-start">
+                                        <input type="text" class="form-control  ps-3" placeholder="Número de Documento" th:field="*{documento}" required>
+                                    </div>
+                                    <div class="input-group input-group-static mb-4  tamanio2 separacion float-start">
+                                        <input type="email" class="form-control  ps-3" placeholder="Correo Electrónico" th:field="*{email}" required>
+                                    </div>
+                                    <div class="input-group input-group-static tamanio2">
+                                        <input type="number" class="form-control ps-3" placeholder="Teléfono" th:field="*{telefono}" required>
+                                    </div>
+                                    <label for="exampleFormControlSelect1" class="ms-0 text-bold">
+                                        * Explícanos cuál es el problema que tienes (lo más detalladamente posible), para que podamos validar tu solicitud más ágilmente.
+                                    </label>
+                                    <div class="mb-4">
+										<label class="mt-4">Description</label>
+										<p class="form-text text-muted text-xs ms-1 d-inline">
+											(obligatorio, para tomar la solicitud)
+										</p>
+										<textarea class="ps-2 form-control h-25 border border-primary" id="exampleFormControlTextarea1" rows="3" th:field="*{descripcion}" required></textarea>
+									</div>
+
+                                    <label for="exampleFormControlSelect1" class="ms-0 text-bold">
+                                        * Deberás adjuntar la factura o documento acreditativo conforme nos has adquirido el equipo en VanitySAC para tramitar la solicitud, sin este documento no se realizará ninguna tramitación ni gestión y/o en caso de realizarse podría conllevar gastos adicionales:
+                                    </label>
+
+                                    <div class="mb-3 tamanio1">
+                                        <input type="file" class="form-control ps-3 mb-3 border border-primary" name="file" required>
+                                    </div>
+
+                                    <div class="form-check form-check-info text-start ps-0">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" required>
+                                        <label class="form-check-label" for="flexCheckDefault">Estoy de acuerdo en aceptar nuestras condiciones de <a href="javascript:;"
+                                                class="text-dark font-weight-bolder">Contratación, garantía y devolución.</a>
+                                        </label>
+                                    </div>
+                                    <div class="form-check form-check-info text-start ps-0">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault2" required>
+                                        <label class="form-check-label w-90" for="flexCheckDefault2">Estoy de acuerdo con los <a href="javascript:;" class="text-dark font-weight-bolder">Términos y condiciones</a> y que los datos indicados en este 
+                                            formulario pasen a formar parte del archivo de clientes de <span class="font-weight-bold text-dark">Mecánica Dueñas</span>, con la finalidad de gestionar su solicitud.
+                                        </label>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn bg-gradient-primary w-10 my-4 mb-2">ENVIAR</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer position-absolute bottom-2 py-2 w-100">
+                <div class="container">
+                    <div class="row align-items-center justify-content-lg-between">
+                        <div class="col-12 col-md-6 my-auto">
+                            <div class="copyright text-center text-sm text-white text-lg-start">
+                                ©
+                                <script>
+                                    document.write(new Date().getFullYear())
+                                </script>,
+                                hecho por <i class="fa fa-heart" aria-hidden="true"></i> by
+                                <a href="https://www.creative-tim.com" class="font-weight-bold text-white"
+                                    target="_blank">Creative
+                                    Tim</a>
+                                para una Web mejor
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link text-white">MECÁNICA DUEÑAS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link text-white">Sobre Nosotros</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link text-white">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link pe-0 text-white">Licencia</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </main>
+
+    <div th:replace="layout::configuracion"></div>
+
+	<!-- Layout Pintado  -->
+	<script th:replace="layout::pintado-script"></script>
+
+	<div th:replace="moduloRol/listarRol::grupo-script"></div>
+</body>
+
+</html>

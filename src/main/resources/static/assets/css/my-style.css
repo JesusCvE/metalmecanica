@@ -1,0 +1,14 @@
+.color-texto{
+    color: #004F8F;
+}
+
+.tamanio1{
+    width: 49%;
+}
+.tamanio2{
+    width: 18%;
+}
+
+.input-group .espaciado option{
+    padding-left: 20px;
+}
